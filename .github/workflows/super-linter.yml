@@ -43,6 +43,9 @@ jobs:
           # Set custom path for linter configuration files from .github/linters to root directory
           LINTER_RULES_PATH: .
 
+          VALIDATE_JAVASCRIPT_ES: true
+          JAVASCRIPT_ES_CONFIG_FILE: eslint.config.js # Adjust if your config file is named differently
+
           # Disable prettier checks to avoid conflicts with existing formatting
           VALIDATE_CSS_PRETTIER: false
           VALIDATE_GRAPHQL_PRETTIER: false
