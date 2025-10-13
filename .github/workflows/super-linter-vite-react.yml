@@ -16,7 +16,8 @@ on:
 permissions: read-all
 
 jobs:
-  run-lint:
+  # Run Super-Linter for general code quality checks
+  run-super-linter:
     runs-on: ubuntu-latest
 
     permissions:
@@ -40,9 +41,6 @@ jobs:
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          # Disable Super-Linter's built-in JSX linters (ESLint) to avoid conflicts with custom ESLint setup from Vite + React presets
-          VALIDATE_JSX: false
-
           # Disable prettier checks to avoid conflicts with existing formatting
           VALIDATE_CSS_PRETTIER: false
           VALIDATE_GRAPHQL_PRETTIER: false
@@ -62,6 +60,23 @@ jobs:
           # Disable markdown linting to avoid conflicts with existing formatting
           VALIDATE_MARKDOWN: false
 
+          # Disable Super-Linter's built-in JSX linters (ESLint) to avoid conflicts with custom ESLint setup from Vite + React presets
+          VALIDATE_JSX: false
+
+  # Run custom ESLint for Vite + React projects
+  run-eslint:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read # Required to checkout code
+      packages: read # Required to install dependencies from GitHub Packages
+      statuses: write # To report GitHub Actions status checks
+      checks: write # Required to report ESLint results
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -70,6 +85,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Run custom ESLint for Vite + React projects
       - name: Run ESLint
-        run: npm run lint
+        run: npm run lint # Assumes you have a lint script (e.g. "lint": "eslint .") in your package.json
