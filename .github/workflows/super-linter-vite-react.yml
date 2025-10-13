@@ -40,11 +40,8 @@ jobs:
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          # Set custom path for linter configuration files from .github/linters to root directory
-          LINTER_RULES_PATH: .
-
-          # Adjust if your config file is named differently
-          JAVASCRIPT_ES_CONFIG_FILE: eslint.config.js
+          # Disable Super-Linter ESLint to use custom ESLint setup from Vite + React presets
+          VALIDATE_JAVASCRIPT_ES: false
 
           # Disable prettier checks to avoid conflicts with existing formatting
           VALIDATE_CSS_PRETTIER: false
@@ -64,3 +61,15 @@ jobs:
 
           # Disable markdown linting to avoid conflicts with existing formatting
           VALIDATE_MARKDOWN: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci # Use `npm ci` for clean install based on package-lock.json
+
+      # Run custom ESLint for Vite + React projects
+      - name: Run ESLint
+        run: npm run lint
