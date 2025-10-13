@@ -40,8 +40,8 @@ jobs:
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          # Disable Super-Linter ESLint to use custom ESLint setup from Vite + React presets
-          VALIDATE_JAVASCRIPT_ES: false
+          # Disable Super-Linter's built-in JSX linters (ESLint) to avoid conflicts with custom ESLint setup from Vite + React presets
+          VALIDATE_JSX: false
 
           # Disable prettier checks to avoid conflicts with existing formatting
           VALIDATE_CSS_PRETTIER: false
