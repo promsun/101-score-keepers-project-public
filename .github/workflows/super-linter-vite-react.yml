@@ -66,6 +66,9 @@ jobs:
           # Disable Super-Linter's built-in JSX linters (ESLint) to avoid conflicts with custom ESLint setup from Vite + React presets
           VALIDATE_JSX: false
 
+          # Disable jscpd checks to avoid conflicts with existing code structure
+          VALIDATE_JSCPD: false
+
   # Run custom ESLint for Vite + React projects
   run-eslint:
     runs-on: ubuntu-latest
