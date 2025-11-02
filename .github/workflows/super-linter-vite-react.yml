@@ -37,9 +37,12 @@ jobs:
       - name: Super-linter
         uses: super-linter/super-linter@ffde3b2b33b745cb612d787f669ef9442b1339a6 # v8.1.0
         env:
-          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          # Set custom path for linter configuration files from .github/linters to root directory
+          LINTER_RULES_PATH: /
 
           # Disable prettier checks to avoid conflicts with existing formatting
           VALIDATE_CSS_PRETTIER: false
